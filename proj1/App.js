@@ -36,17 +36,17 @@ function download_test() {
     Alert.alert('Success!')
     console.log('The file saved to ', res.path());
   })
-  // .catch((err) => {
-  //   console.log('Download failed', err);
-  //   ToastAndroid.showWithGravityAndOffset(
-  //     "Something went wrong!",
-  //     ToastAndroid.LONG,
-  //     ToastAndroid.BOTTOM,
-  //     25,
-  //     50
-  //   );
-  //   Alert.alert('Failed!')
-  // })
+  .catch((err) => {
+    console.log('Download failed', err);
+    ToastAndroid.showWithGravityAndOffset(
+      "Something went wrong!",
+      ToastAndroid.LONG,
+      ToastAndroid.BOTTOM,
+      25,
+      50
+    );
+    Alert.alert('Failed!')
+  })
 }
 
 const App = () => {
