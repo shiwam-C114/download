@@ -1,55 +1,60 @@
 import React from 'react';
 import {
   SafeAreaView,
-  TextInput,
+  ToastAndroid,
   Button,
   Alert 
 } from 'react-native';
 import RNFetchBlob from 'rn-fetch-blob'
 
 let dirs = RNFetchBlob.fs.dirs
+console.log('directory',dirs)
 function download_test() {
-  console.log("first")
+  console.log("Download Started")
   RNFetchBlob
   .config({
-    // android only options, these options be a no-op on IOS
+    // path : dirs.DownloadDir + '/path-to-file.mp4',
     addAndroidDownloads : {
       useDownloadManager : true,
-      // Show notification when response data transmitted
       notification : true,
-      // Title of download notification
-      title : 'Great ! Download Success ! :O ',
-      // File description (not notification description)
-      description : 'An image file.',
-      mime : 'image/png',
-      // Make the file scannable  by media scanner
+      title : `${parseInt((Math.random()*10000)).toString(16)}.mp4`,
+      description : 'A video file.',
+      mime : 'video/mp4',
       mediaScannable : true,
     }
   })
-  .fetch('GET', 'https://static.scientificamerican.com/sciam/cache/file/7A715AD8-449D-4B5A-ABA2C5D92D9B5A21_source.png', {
-    //some headers ..
-  })
+  .fetch('GET', 'https://www.sample-videos.com/video123/mp4/720/big_buck_bunny_720p_1mb.mp4')
   .then((res) => {
     console.log(res)
-    // the temp file path
-    console.log('The file saved to ', res.path())
+    ToastAndroid.showWithGravityAndOffset(
+      "Your download is completed!",
+      ToastAndroid.LONG,
+      ToastAndroid.BOTTOM,
+      25,
+      50
+    );
+    Alert.alert('Success!')
+    console.log('The file saved to ', res.path());
   })
+  // .catch((err) => {
+  //   console.log('Download failed', err);
+  //   ToastAndroid.showWithGravityAndOffset(
+  //     "Something went wrong!",
+  //     ToastAndroid.LONG,
+  //     ToastAndroid.BOTTOM,
+  //     25,
+  //     50
+  //   );
+  //   Alert.alert('Failed!')
+  // })
 }
 
 const App = () => {
-  const [text, onChangeText] = React.useState("Useless Text");
-
-
   
-
   return (
     <SafeAreaView >
-       <TextInput
-        onChangeText={onChangeText}
-        placeholder="useless placeholder"
-      />
       <Button
-        title="Press me"
+        title="Download"
         onPress={download_test}
       />
     </SafeAreaView>
