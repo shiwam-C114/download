@@ -18,13 +18,13 @@ function download_test() {
     // appendExt: "mp4",
     addAndroidDownloads : {
         useDownloadManager : true,
+        path : dirs.DownloadDir,
         notification : true,
         title : `${parseInt((Math.random()*10000000000000)).toString(16)}.mp4`,
         description : 'A video file.',
         mime : 'video/mp4',
         mediaScannable : true,
       },
-      // path : dirs.DownloadDir,
     })
     .fetch('GET', 'https://www.sample-videos.com/video123/mp4/720/big_buck_bunny_720p_1mb.mp4')
   .then((res) => {
